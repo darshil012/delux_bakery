@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="delux_bakery"
+        android:label="Delux Customer"
         android:icon="@mipmap/ic_launcher">
 
         <activity

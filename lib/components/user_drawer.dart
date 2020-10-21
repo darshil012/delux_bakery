@@ -9,14 +9,82 @@ class UserDrawer extends StatelessWidget{
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-            child: Text(
-              'Drawer Header',
-              style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                    width: 75,
+                    height: 75,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(37.5),
+                      color: Colors.white,
+                      image: DecorationImage(
+                        image: AssetImage('assets/users-vector.jpg')
+                      )
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 85),
+                    child: Container(
+                      child: Text(
+                        '4IT Sol',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 24
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 110),
+                    child: Container(
+                      child: Text(
+                        'Himatnagar',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
             decoration: BoxDecoration(
               color: Colors.indigo
             ),
-          )
+          ),
+          ListTile(
+            title: Text('Home'),
+            onTap: (){Navigator.pushReplacementNamed(context, '/home');},
+          ),
+          ListTile(
+            title: Text('Transaction'),
+            onTap: (){},
+          ),
+          ListTile(
+            title: Text('Notification'),
+            onTap: (){Navigator.pushReplacementNamed(context, '/notifs');},
+          ),
+          ListTile(
+            title: Text('Terms & Conditions'),
+            onTap: (){},
+          ),
+          ListTile(
+            title: Text('Privacy Policy'),
+            onTap: (){},
+          ),
+          ListTile(
+            title: Text('Product Services'),
+            onTap: (){},
+          ),
+          ListTile(
+            title: Text('Log Out'),
+            onTap: (){Navigator.pushReplacementNamed(context, '/');},
+          ),
         ],
       ),
     );
