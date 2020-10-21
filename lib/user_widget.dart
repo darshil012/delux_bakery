@@ -38,51 +38,10 @@ class _UserState extends State<Userwidget> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: Colors.white,
-                      boxShadow: [Border.all(
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        
+                      boxShadow: [BoxShadow(
+                        color: Colors.black45,
+                        blurRadius: 0.4,
+                        offset: Offset(0,1)
                       )]
                     ),
                   )
