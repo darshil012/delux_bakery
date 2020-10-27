@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:delux_bakery/components/zoom_scaffold.dart';
 
 class UserAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override
@@ -12,7 +13,7 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget{
         Container(
           padding: EdgeInsets.only(top: 25.0),
           decoration: BoxDecoration(
-            color: Color(0xFF3F48CC)
+            color: Color(0xFF0A287E)
           ),
           child: Row(
             children: <Widget>[

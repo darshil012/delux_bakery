@@ -206,8 +206,11 @@ class _UserState extends State<Userwidget> {
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: (){Navigator.pushNamed(context, '/punch_order');},
-        child: new Icon(Icons.bakery_dining),
-        backgroundColor: Colors.redAccent,
+        child: Image(
+          image: AssetImage('assets/ico-hand.png'),
+          width: 25,
+        ),
+        backgroundColor: Color(0xFFE4001B),
         elevation: 4.0,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -218,7 +221,7 @@ class _UserState extends State<Userwidget> {
             Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined), onPressed: (){Navigator.pushNamed(context, '/report');},)),
             Expanded(child: new Text('')),
             Expanded(child: IconButton(icon: Icon(Icons.notifications), onPressed: (){Navigator.pushNamed(context, '/notifs');},)),
-            Expanded(child: IconButton(icon: Icon(Icons.person,color: Colors.indigo,), onPressed: (){},)),
+            Expanded(child: IconButton(icon: Icon(Icons.person,color: Color(0xFF0A287E),), onPressed: (){},)),
           ],
         ),
       ),

@@ -5,6 +5,8 @@ import 'package:delux_bakery/pages/splash_screen.dart';
 
 import 'package:delux_bakery/pages/registration_page.dart';
 import 'package:delux_bakery/pages/login_page.dart';
+import 'package:delux_bakery/pages/request_service.dart';
+import 'package:delux_bakery/pages/transactions.dart';
 
 import 'home_widget.dart';
 import 'report_widget.dart';
@@ -27,6 +29,8 @@ var routes = <String, WidgetBuilder>{
   '/notifs':(context) => NotificationWidget(),
   '/user':(context) => Userwidget(),
   '/punch_order':(context) => PunchOrder(),
+  '/request_services': (context) => RequestServices(),
+  '/transactions_screen': (context) => TransactionsScreen(),
   '/login':(context) => LoginScreen(),
   '/register':(context) => RegistrationScreen()
 };
@@ -36,6 +40,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(fontFamily: 'poppin'),
       home: SplashScreen(),
       routes: routes,
     );

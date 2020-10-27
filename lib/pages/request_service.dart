@@ -5,19 +5,19 @@ import 'package:intl/intl.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
 
-class Report extends StatefulWidget{
+class RequestServices extends StatefulWidget{
   @override
   State<StatefulWidget> createState(){
-    return _ReportState();
+    return _RequestServices();
   }
 }
 
-class _ReportState extends State<Report>{
+class _RequestServices extends State<RequestServices>{
   String _value = DateTime.now().toString();
 
   String dropdownValue;
 
-  final dateFormat = DateFormat("dd/mm/yyyy");
+  final dateFormat = DateFormat("dd/MM/yyyy");
 
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
@@ -49,7 +49,7 @@ class _ReportState extends State<Report>{
                     Padding(
                       padding: EdgeInsets.only(left: 20, top: 10),
                       child: Text(
-                        'All Reports',
+                        'Services Request',
                         style: TextStyle(
                             color: Color(0xFF1C3787),
                             fontWeight: FontWeight.w800,
@@ -74,7 +74,7 @@ class _ReportState extends State<Report>{
                         iconSize: 24,
                         elevation: 16,
                         decoration: InputDecoration(
-                          labelText: 'Select Report',
+                          hintText: 'Select Action',
                           fillColor: Colors.white,
                           filled: true,
                           contentPadding: EdgeInsets.only(top: 8.0, left: 10),
@@ -111,7 +111,7 @@ class _ReportState extends State<Report>{
                         iconSize: 24,
                         elevation: 16,
                         decoration: InputDecoration(
-                          labelText: 'Select Item',
+                          hintText: 'Select Product',
                           fillColor: Colors.white,
                           filled: true,
                           contentPadding: EdgeInsets.only(top: 8.0, left: 10, bottom: 8.0),
@@ -144,14 +144,32 @@ class _ReportState extends State<Report>{
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
-                        child: BasicDateField()
+                          child: Column(
+                            children: <Widget>[
+                              TextFormField(
+                                maxLines: 10,
+                                keyboardType: TextInputType.multiline,
+                                decoration: InputDecoration(
+                                  hintText: 'Text Here...',
+                                  fillColor: Colors.white,
+                                  filled: true,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(18),
+                                    borderSide: BorderSide()
+                                  ),
+                                  contentPadding: EdgeInsets.only(top: 8.0, left: 10),
+
+                                ),
+                              ),
+                            ],
+                          )
                       )
                     ],
                   ),
                 ),
                 SizedBox(height: 15,),
                 Container(
-                  width: MediaQuery.of(context).size.width*0.30,
+                  width: MediaQuery.of(context).size.width*0.50,
                   height: 40,
                   decoration: BoxDecoration(
                     color: Color(0xFF1C3787),
@@ -166,11 +184,11 @@ class _ReportState extends State<Report>{
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Submit',
+                        'Send Request',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w900
                         ),
                       )
                     ],
@@ -220,10 +238,9 @@ class BasicDateField extends StatelessWidget {
             prefixIcon: Icon(Icons.calendar_today),
             labelText: 'dd/MM/yyyy',
             fillColor: Colors.white,
-            filled: true,
             contentPadding: EdgeInsets.only(top: 8.0, left: 2),
             border: new OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(18.0),
+              borderRadius: new BorderRadius.circular(25.0),
               borderSide: new BorderSide(),
             ),
           ),
@@ -255,10 +272,9 @@ class BasicDateField extends StatelessWidget {
             prefixIcon: Icon(Icons.calendar_today),
             labelText: 'dd/MM/yyyy',
             fillColor: Colors.white,
-            filled: true,
             contentPadding: EdgeInsets.only(top: 8.0, left: 2),
             border: new OutlineInputBorder(
-              borderRadius: new BorderRadius.circular(18.0),
+              borderRadius: new BorderRadius.circular(25.0),
               borderSide: new BorderSide(),
             ),
           ),

@@ -28,7 +28,8 @@ dependencies:
   keyboard_avoider: ^0.1.2
   pin_code_fields: ^6.0.0
   datetime_picker_formfield: ^1.0.0
-
+  provider:
+  geolocator:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -74,7 +75,12 @@ flutter:
       - asset: fonts/slogan_italic.ttf
    - family: poppin
      fonts:
-      - asset: fonts/poppin.ttf
+      - asset: fonts/Poppins-Medium.ttf
+      - asset: fonts/poppin-light.ttf
+        weight: 400
+      - asset: fonts/Poppins-SemiBold.ttf
+        weight: 700
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

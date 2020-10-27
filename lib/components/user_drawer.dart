@@ -54,7 +54,7 @@ class UserDrawer extends StatelessWidget{
               ),
             ),
             decoration: BoxDecoration(
-              color: Colors.indigo
+              color: Color(0xFF0A287E)
             ),
           ),
           ListTile(
@@ -63,11 +63,15 @@ class UserDrawer extends StatelessWidget{
           ),
           ListTile(
             title: Text('Transaction'),
-            onTap: (){},
+            onTap: (){Navigator.pushReplacementNamed(context, '/transactions_screen');},
           ),
           ListTile(
             title: Text('Notification'),
             onTap: (){Navigator.pushReplacementNamed(context, '/notifs');},
+          ),
+          ListTile(
+            title: Text('Services Request'),
+            onTap: (){Navigator.pushReplacementNamed(context, '/request_services');},
           ),
           ListTile(
             title: Text('Terms & Conditions'),

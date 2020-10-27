@@ -48,7 +48,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue.shade50,
+      backgroundColor: Color(0xFFF4F5FC),
       key: scaffoldKey,
       body: GestureDetector(
         onTap: () {},
@@ -66,9 +66,35 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                   image: AssetImage('assets/otp_verification_image.png'),
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  'OTP Verification',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, fontFamily: 'poppin', color: Color(0xFFE4001B)),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.symmetric(horizontal: 65.0, vertical: 8),
+                child: RichText(
+                  text: TextSpan(
+                      text: "Enter your 4 digit One time Password sent on ",
+                      children: [
+                        TextSpan(
+                            text: widget.phoneNumber,
+                            style: TextStyle(
+                                color: Color(0xFF0A287E),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15)),
+                      ],
+                      style: TextStyle(color: Colors.black54, fontSize: 15)),
+                  textAlign: TextAlign.center,
+                ),
+              ),
               SizedBox(height: 100),
               Container(
-                width: MediaQuery.of(context).size.width*0.95,
+                width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -80,32 +106,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 ),
                 child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Text(
-                        'Phone Number Verification',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                      const EdgeInsets.symmetric(horizontal: 65.0, vertical: 8),
-                      child: RichText(
-                        text: TextSpan(
-                            text: "Enter the code sent to ",
-                            children: [
-                              TextSpan(
-                                  text: widget.phoneNumber,
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15)),
-                            ],
-                            style: TextStyle(color: Colors.black54, fontSize: 15)),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+
                     SizedBox(
                       height: 20,
                     ),
@@ -137,6 +138,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                               fieldWidth: 50,
                               activeFillColor:Colors.white,
                               inactiveFillColor: Colors.white,
+                              inactiveColor: Color(0xFF0A287E),
                               selectedFillColor: Colors.white
                             ),
                             cursorColor: Colors.black,
@@ -197,24 +199,25 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                 text: " RESEND",
                                 recognizer: onTapRecognizer,
                                 style: TextStyle(
-                                    color: Colors.indigo,
+                                    color: Color(0xFFE4001B),
                                     fontWeight: FontWeight.bold,
+                                    fontFamily: 'poppin',
                                     fontSize: 16))
                           ]),
                     ),
                     SizedBox(
-                      height: 14,
+                      height: 10,
                     ),
                     Container(
                       margin:
-                      const EdgeInsets.symmetric(vertical: 16.0, horizontal: 30),
+                      const EdgeInsets.symmetric(vertical: 10.0, horizontal: 30),
                       child: ButtonTheme(
                         height: 40,
                         child: FlatButton(
                           onPressed: () {
                             formKey.currentState.validate();
                             // conditions for validating
-                            if (currentText.length != 4 || currentText != "towtow") {
+                            if (currentText.length != 4 || currentText != "4444") {
                               errorController.add(ErrorAnimationType
                                   .shake); // Triggering error shake animation
                               setState(() {
@@ -228,6 +231,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                   duration: Duration(seconds: 2),
                                 ));
                               });
+                              Navigator.pushReplacementNamed(context, '/home');
                             }
                           },
                           child: Center(
@@ -241,7 +245,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         ),
                       ),
                       decoration: BoxDecoration(
-                          color: Colors.indigo,
+                          color: Color(0xFF0A287E),
                           borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(

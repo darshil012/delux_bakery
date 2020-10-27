@@ -83,7 +83,8 @@ class _OtpVerification extends State<OtpVerification>{
                                     color: Colors.green.shade600,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  length: 6,
+                                  length: 4,
+
                                   obscureText: false,
                                   obscuringCharacter: '*',
                                   animationType: AnimationType.fade,
@@ -99,6 +100,7 @@ class _OtpVerification extends State<OtpVerification>{
                                     borderRadius: BorderRadius.circular(5),
                                     fieldHeight: 60,
                                     fieldWidth: 50,
+                                    selectedFillColor: Color(0xFF0A287E),
                                     activeFillColor:
                                     hasError ? Colors.orange : Colors.white,
                                   ),

@@ -103,8 +103,11 @@ class _NotificationWidget extends State<NotificationWidget>{
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: (){Navigator.pushNamed(context, '/punch_order');},
-        child: new Icon(Icons.bakery_dining),
-        backgroundColor: Colors.redAccent,
+        child: Image(
+          image: AssetImage('assets/ico-hand.png'),
+          width: 25,
+        ),
+        backgroundColor: Color(0xFFE4001B),
         elevation: 4.0,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -114,7 +117,7 @@ class _NotificationWidget extends State<NotificationWidget>{
             Expanded(child: IconButton(icon: Icon(Icons.home,), onPressed: (){Navigator.pushNamed(context, '/home');},)),
             Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined), onPressed: (){Navigator.pushReplacementNamed(context, '/report');},)),
             Expanded(child: new Text('')),
-            Expanded(child: IconButton(icon: Icon(Icons.notifications, color: Colors.indigo,), onPressed: (){},)),
+            Expanded(child: IconButton(icon: Icon(Icons.notifications, color: Color(0xFF0A287E),), onPressed: (){},)),
             Expanded(child: IconButton(icon: Icon(Icons.person), onPressed: (){Navigator.pushNamed(context, '/user');},)),
           ],
         ),

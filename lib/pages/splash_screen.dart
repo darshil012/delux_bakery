@@ -14,35 +14,41 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     //Timer(Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => Home())));
-    Timer(Duration(seconds: 5), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen())));
+    Timer(Duration(seconds: 3), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen())));
+    // Timer(Duration(seconds: 100), () => print('ok'));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        // fit: StackFit.expand,
+        fit: StackFit.expand,
         children: <Widget>[
+
           Container(
-            decoration: BoxDecoration(color: Color(0xFFF4F5FC)),
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Color(0xFFF4F5FC),
+              image: DecorationImage(
+                image: AssetImage('assets/toran.png'),
+                alignment: Alignment.topCenter,
+                fit: BoxFit.fitWidth,
+                repeat: ImageRepeat.repeatX
+              )
+            ),
           ),
           Column(
+
             children: <Widget>[
+
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Image(image: AssetImage('assets/toran.png'), fit: BoxFit.fitWidth,),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 2,
+                flex: 4,
                 child: Container(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      SizedBox(height: MediaQuery.of(context).size.height/4,),
                       Image(image: AssetImage('assets/Logo1.png',),width: 250, height: 160,),
                       Text(
                         'The name is Enough',
@@ -63,7 +69,6 @@ class _SplashScreenState extends State<SplashScreen> {
               Expanded(
                 flex: 1,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     CircularProgressIndicator(),
                     Padding(
@@ -71,7 +76,38 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                   ],
                 ),
-              )
+              ),
+              Positioned(
+                bottom: 0,
+                child: Stack(
+                  children: <Widget>[
+                    Card(
+                      margin: EdgeInsets.zero,
+                      color: Colors.transparent,
+                      elevation: 0,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width-93,
+                            height: MediaQuery.of(context).size.height/100,
+                            decoration: BoxDecoration(
+                                color: Color(0xFFDD8D40)
+                            ),
+                          ),
+                          Image(
+                            image: AssetImage('assets/bake_splash.png'),
+                          ),
+
+                        ],
+                      )
+                    ),
+
+                  ],
+                ),
+              ),
+
             ],
           )
         ],

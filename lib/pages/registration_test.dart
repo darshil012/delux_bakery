@@ -97,7 +97,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             TextFormField(
                               decoration: new InputDecoration(
                                 contentPadding: EdgeInsets.only(top: 8.0),
-                                labelText: 'Password',
+                                labelText: 'password',
                                 prefixIcon: Icon(Icons.lock),
                                 fillColor: Colors.white,
                                 border: new OutlineInputBorder(

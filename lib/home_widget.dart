@@ -1,6 +1,11 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:flutter/services.dart';
+import 'dart:async';
 
+import 'package:delux_bakery/components/zoom_scaffold.dart';
 import 'package:delux_bakery/components/notif_home.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
@@ -12,10 +17,29 @@ class Home extends StatefulWidget{
   }
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with TickerProviderStateMixin {
+  MenuController menuController;
+
+  Position _currentPosition;
+
+  @override
+  void initState() {
+    super.initState();
+    menuController = new MenuController(
+      vsync: this,
+    )..addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    menuController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       //TOP
       appBar: UserAppBar(),
       drawer: UserDrawer(),
@@ -104,9 +128,10 @@ class _HomeState extends State<Home> {
                                   Text(
                                     '-₹2,000',
                                     style: TextStyle(
-                                      color: Colors.indigo,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 28
+                                      color: Color(0xFF1C3787),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 28,
+                                      fontFamily: 'poppin'
                                     ),
                                   )
                                 ],
@@ -128,65 +153,128 @@ class _HomeState extends State<Home> {
                     SizedBox(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            width: MediaQuery.of(context).size.width*.90,
+                            width: MediaQuery.of(context).size.width-50,
+                            height: 215,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                                boxShadow: [BoxShadow(
-                                    color: Colors.black,
-                                    blurRadius: 2
-                                )]
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [BoxShadow(
+                                color: Colors.black45,
+                                blurRadius: 1,
+                                offset: Offset(1,1),
+                              )],
                             ),
-                            margin: EdgeInsets.all(10),
-                            padding: EdgeInsets.all(10),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Container(
-                                  width: MediaQuery.of(context).size.width*.90,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(color: Colors.black)
-                                      )
-                                  ),
-                                  child: Text(
-                                    "Today's Order",
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    width:MediaQuery.of(context).size.width-50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        border: Border(bottom: BorderSide(color: Colors.black26))
+                                    ),
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20, top: 12),
+                                          child: Image.asset('assets/choices.png'),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 60, top: 16),
+                                          child: Text(
+                                            "Today's Orders",
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.w700
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width*.90,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(color: Colors.black)
-                                      )
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    width:MediaQuery.of(context).size.width-50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        border: Border(bottom: BorderSide(color: Colors.black26))
+                                    ),
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20, top: 12),
+                                          child: Image.asset('assets/check-list.png'),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 60, top: 16),
+                                          child: Text(
+                                            'View all Orders',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: Text("Veiw all Order",),
                                 ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width*.90,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(color: Colors.black)
-                                      )
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    width:MediaQuery.of(context).size.width-50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        border: Border(bottom: BorderSide(color: Colors.black26))
+                                    ),
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20, top: 12),
+                                          child: Image.asset('assets/analysis-rep.png'),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 60, top: 16),
+                                          child: Text(
+                                            'Item Report',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: Text("Item Report",),
                                 ),
-                                Container(
-                                  width: MediaQuery.of(context).size.width*.90,
-                                  height: 30,
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(color: Colors.black)
-                                      )
+                                GestureDetector(
+                                  onTap: (){},
+                                  child: Container(
+                                    width:MediaQuery.of(context).size.width-50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        border: Border(bottom: BorderSide(color: Colors.black26))
+                                    ),
+                                    child: Stack(
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 20, top: 12),
+                                          child: Image.asset('assets/transaction.png'),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 60, top: 16),
+                                          child: Text(
+                                            'Total Transactions',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w700
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  child: Text("Total Transaction",),
                                 ),
                               ],
                             ),
@@ -194,16 +282,17 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 20,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Center(
                           child: SizedBox(
                             height: 30,
-                            width: MediaQuery.of(context).size.width*0.98,
+                            width: MediaQuery.of(context).size.width-30,
                             child: FlatButton(
-                              onPressed: (){},
-                              minWidth: MediaQuery.of(context).size.width*0.90,
+                              onPressed: (){_getCurrentLocation();},
+                              minWidth: MediaQuery.of(context).size.width-50,
                               child: Container(
                                 decoration: BoxDecoration(
                                   color: Colors.white,
@@ -215,13 +304,23 @@ class _HomeState extends State<Home> {
                                   )]
                                 ),
                                 child: Center(
-                                  child: Text(
-                                    "Send GPS Location",
-                                    style: TextStyle(
-                                      color: Colors.black38,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14
-                                    ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.edit_location,
+                                        color: Colors.grey,
+                                      ),
+                                      Text(
+                                        "Send GPS Location",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14,
+                                            fontFamily: 'poppin'
+                                        ),
+                                      )
+                                    ],
                                   ),
                                 ),
                                 width: MediaQuery.of(context).size.width,
@@ -242,15 +341,18 @@ class _HomeState extends State<Home> {
       //BOTTOM
       floatingActionButton: new FloatingActionButton(
         onPressed: (){Navigator.pushNamed(context, '/punch_order');},
-        child: new Icon(Icons.bakery_dining),
-        backgroundColor: Colors.redAccent,
+        child: Image(
+          image: AssetImage('assets/ico-hand.png'),
+          width: 25,
+        ),
+        backgroundColor: Color(0xFFE4001B),
         elevation: 4.0,
       ),
       bottomNavigationBar: BottomAppBar(
         child: new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Expanded(child: IconButton(icon: Icon(Icons.home,color: Colors.indigo,), onPressed: (){},)),
+            Expanded(child: IconButton(icon: Icon(Icons.home,color: Color(0xFF0A287E),), onPressed: (){},)),
             Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined), onPressed: (){Navigator.pushReplacementNamed(context, '/report');},)),
             Expanded(child: new Text('')),
             Expanded(child: IconButton(icon: Icon(Icons.notifications), onPressed: (){Navigator.pushNamed(context, '/notifs');},)),
@@ -260,5 +362,19 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
+  }
+  _getCurrentLocation() async{
+    var forceAndroidLocationManager;
+
+    await Geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+      print(_currentPosition.toString());
+    }).catchError((e) {
+      print(e);
+    });
   }
 }
