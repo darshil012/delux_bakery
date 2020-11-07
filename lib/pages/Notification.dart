@@ -13,7 +13,7 @@ class _NotificationWidget extends State<NotificationWidget>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: UserAppBar(),
+      // appBar: UserAppBar(),
       drawer: UserDrawer(),
       body: SingleChildScrollView(
         child: Column(

@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
 
+import 'components/zoom_scaffold.dart';
+
 class Report extends StatefulWidget{
   @override
   State<StatefulWidget> createState(){
@@ -12,10 +14,37 @@ class Report extends StatefulWidget{
   }
 }
 
-class _ReportState extends State<Report>{
+class _ReportState extends State<Report> with TickerProviderStateMixin {
   String _value = DateTime.now().toString();
 
   String dropdownValue;
+
+  double borderRadius = 0.0;
+  MenuController menuController;
+  AppBar appbar = AppBar();
+
+  TabController tabController;
+  bool isCollapsed = true;
+  double screenWidth, screenHeight;
+  final Duration duration = const Duration(milliseconds: 500);
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    menuController = new MenuController(
+      vsync: this,
+    )
+      ..addListener(() => setState(() {}));
+    controller = AnimationController(vsync: this, duration: duration);
+  }
+
+  @override
+  void dispose() {
+    menuController.dispose();
+    controller.dispose();
+    super.dispose();
+  }
 
   final dateFormat = DateFormat("dd/mm/yyyy");
 
@@ -26,187 +55,273 @@ class _ReportState extends State<Report>{
         firstDate: new DateTime(2020),
         lastDate: new DateTime(2030)
     );
-    if(picked != null) setState(() => _value = picked.toString());
+    if (picked != null) setState(() => _value = picked.toString());
   }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    screenHeight = size.height;
+    screenWidth = size.width;
     // TODO: implement build
-    return Scaffold(
-      appBar: UserAppBar(),
-      drawer: UserDrawer(),
-      body: SingleChildScrollView(
-        child: Column(
+    return WillPopScope(
+      onWillPop: () async {
+        if (!isCollapsed) {
+          setState(() {
+            controller.reverse();
+            borderRadius = 0.0;
+            isCollapsed = !isCollapsed;
+          });
+          return false;
+        }
+        else
+          return true;
+      },
+      child: Scaffold(
+        body: Stack(
           children: <Widget>[
-            SizedBox(
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                    color: Color(0xFFF4F5FC)
-                ),
-                child: Stack(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, top: 10),
-                      child: Text(
-                        'All Reports',
-                        style: TextStyle(
-                            color: Color(0xFF1C3787),
-                            fontWeight: FontWeight.w800,
-                            fontSize: 24
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            menu(context),
+            AnimatedPositioned(
+                left: isCollapsed ? 0 : 0.6 * screenWidth,
+                right: isCollapsed ? 0 : -0.2 * screenWidth,
+                top: isCollapsed ? 0 : screenHeight * 0.1,
+                bottom: isCollapsed ? 0 : screenHeight * 0.1,
+                duration: duration,
+                curve: Curves.fastOutSlowIn,
+                child: dashboard(context)
             ),
-            Column(
-              children: <Widget>[
-                SizedBox(height: 20,),
-                Container(
-                  width: MediaQuery.of(context).size.width*0.80,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget menu(context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: FractionallySizedBox(
+            widthFactor: 0.6,
+            heightFactor: 0.8,
+            child: UserDrawer(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget dashboard(context) {
+    return SafeArea(
+        child: Material(
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            type: MaterialType.card,
+            animationDuration: duration,
+
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+              child: Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Color(0xFF0A287E),
+                  title: Text('SandwichKing'),
+                  leading: IconButton(
+                      icon: AnimatedIcon(
+                        icon: AnimatedIcons.menu_close,
+                        progress: controller,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          if (isCollapsed) {
+                            controller.forward();
+
+                            borderRadius = 16.0;
+                          } else {
+                            controller.reverse();
+
+                            borderRadius = 0.0;
+                          }
+
+                          isCollapsed = !isCollapsed;
+                        });
+                      }),
+                ),
+                body: SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      DropdownButtonFormField<String>(
-                        icon: Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey,),
-                        iconSize: 24,
-                        elevation: 16,
-                        decoration: InputDecoration(
-                          labelText: 'Select Report',
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.only(top: 8.0, left: 10),
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            borderSide: new BorderSide(),
+                      SizedBox(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              color: Color(0xFFF4F5FC)
+                          ),
+                          child: Stack(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: 20, top: 10),
+                                child: Text(
+                                  'All Reports',
+                                  style: TextStyle(
+                                      color: Color(0xFF1C3787),
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 24
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        style: TextStyle(color: Colors.indigo),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
-                        items: <String>['One', 'Two', 'Three', 'Four']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
                       ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10,),
-                Container(
-                  width: MediaQuery.of(context).size.width*0.80,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      DropdownButtonFormField<String>(
-                        icon: Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey,),
-                        iconSize: 24,
-                        elevation: 16,
-                        decoration: InputDecoration(
-                          labelText: 'Select Item',
-                          fillColor: Colors.white,
-                          filled: true,
-                          contentPadding: EdgeInsets.only(top: 8.0, left: 10, bottom: 8.0),
-                          border: new OutlineInputBorder(
-                            borderRadius: new BorderRadius.circular(18.0),
-                            borderSide: new BorderSide(),
+                      Column(
+                        children: <Widget>[
+                          SizedBox(height: 20,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.80,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                DropdownButtonFormField<String>(
+                                  icon: Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey,),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  decoration: InputDecoration(
+                                    labelText: 'Select Report',
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    contentPadding: EdgeInsets.only(top: 8.0, left: 10),
+                                    border: new OutlineInputBorder(
+                                      borderRadius: new BorderRadius.circular(18.0),
+                                      borderSide: new BorderSide(),
+                                    ),
+                                  ),
+                                  style: TextStyle(color: Colors.indigo),
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      dropdownValue = newValue;
+                                    });
+                                  },
+                                  items: <String>['One', 'Two', 'Three', 'Four']
+                                      .map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        style: TextStyle(color: Colors.indigo),
-                        onChanged: (String newValue) {
-                          setState(() {
-                            dropdownValue = newValue;
-                          });
-                        },
-                        items: <String>['One', 'Two', 'Three', 'Four']
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                      SizedBox(height: 10,),
-                    ],
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width*0.80,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        child: BasicDateField()
+                          SizedBox(height: 10,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.80,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                DropdownButtonFormField<String>(
+                                  icon: Icon(Icons.keyboard_arrow_down_outlined, color: Colors.grey,),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  decoration: InputDecoration(
+                                    labelText: 'Select Item',
+                                    fillColor: Colors.white,
+                                    filled: true,
+                                    contentPadding: EdgeInsets.only(top: 8.0, left: 10, bottom: 8.0),
+                                    border: new OutlineInputBorder(
+                                      borderRadius: new BorderRadius.circular(18.0),
+                                      borderSide: new BorderSide(),
+                                    ),
+                                  ),
+                                  style: TextStyle(color: Colors.indigo),
+                                  onChanged: (String newValue) {
+                                    setState(() {
+                                      dropdownValue = newValue;
+                                    });
+                                  },
+                                  items: <String>['One', 'Two', 'Three', 'Four']
+                                      .map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                                SizedBox(height: 10,),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.80,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                    child: BasicDateField()
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 15,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.30,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF1C3787),
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [BoxShadow(
+                                color: Colors.black45,
+                                blurRadius: 2,
+                                offset: Offset(1,1),
+                              )],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'Submit',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w900
+                                  ),
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       )
                     ],
                   ),
                 ),
-                SizedBox(height: 15,),
-                Container(
-                  width: MediaQuery.of(context).size.width*0.30,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1C3787),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [BoxShadow(
-                      color: Colors.black45,
-                      blurRadius: 2,
-                      offset: Offset(1,1),
-                    )],
+                floatingActionButton: new FloatingActionButton(
+                  onPressed: (){Navigator.pushNamed(context, '/punch_order');},
+                  child: Image(
+                    image: AssetImage('assets/ico-hand.png'),
+                    width: 25,
                   ),
-                  child: Row(
+                  backgroundColor: Color(0xFFE4001B),
+                  elevation: 4.0,
+                ),
+                bottomNavigationBar: BottomAppBar(
+                  child: new Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Submit',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w900
-                        ),
-                      )
+                      Expanded(child: IconButton(icon: Icon(Icons.home,), onPressed: (){Navigator.pushNamed(context, '/home');},)),
+                      Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined, color: Color(0xFF0A287E),), onPressed: (){},)),
+                      Expanded(child: new Text('')),
+                      Expanded(child: IconButton(icon: Icon(Icons.notifications,), onPressed: (){Navigator.pushReplacementNamed(context, '/notifs');},)),
+                      Expanded(child: IconButton(icon: Icon(Icons.person), onPressed: (){Navigator.pushNamed(context, '/user');},)),
                     ],
                   ),
-                )
-              ],
+                ),
+                floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+              ),
             )
-          ],
-        ),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: (){Navigator.pushNamed(context, '/punch_order');},
-        child: Image(
-          image: AssetImage('assets/ico-hand.png'),
-          width: 25,
-        ),
-        backgroundColor: Color(0xFFE4001B),
-        elevation: 4.0,
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: new Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Expanded(child: IconButton(icon: Icon(Icons.home,), onPressed: (){Navigator.pushNamed(context, '/home');},)),
-            Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined, color: Color(0xFF0A287E),), onPressed: (){},)),
-            Expanded(child: new Text('')),
-            Expanded(child: IconButton(icon: Icon(Icons.notifications,), onPressed: (){Navigator.pushReplacementNamed(context, '/notifs');},)),
-            Expanded(child: IconButton(icon: Icon(Icons.person), onPressed: (){Navigator.pushNamed(context, '/user');},)),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        )
     );
   }
 }
-
 class BasicDateField extends StatelessWidget {
   final format = DateFormat("dd/MM/yyyy");
   @override
@@ -218,7 +333,7 @@ class BasicDateField extends StatelessWidget {
 
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.calendar_today),
-            labelText: 'dd/MM/yyyy',
+            labelText: 'dd/mm/yyyy',
             fillColor: Colors.white,
             filled: true,
             contentPadding: EdgeInsets.only(top: 8.0, left: 2),
@@ -253,7 +368,7 @@ class BasicDateField extends StatelessWidget {
         child: DateTimeField(
           decoration: InputDecoration(
             prefixIcon: Icon(Icons.calendar_today),
-            labelText: 'dd/MM/yyyy',
+            labelText: 'dd/mm/yyyy',
             fillColor: Colors.white,
             filled: true,
             contentPadding: EdgeInsets.only(top: 8.0, left: 2),

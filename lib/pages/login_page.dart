@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:delux_bakery/home_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 bool _obscureText = true;
 
@@ -11,6 +15,8 @@ class LoginScreen extends StatefulWidget{
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final phoneController = TextEditingController();
+  final passwordController = TextEditingController();
   FocusNode myFocusNode = new FocusNode();
 
   @override
@@ -71,6 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Container(
                       child: TextFormField(
+                        controller: phoneController,
                         keyboardType: TextInputType.number,
                         cursorColor: Color(0xFF0A287E),
                         decoration: new InputDecoration(
@@ -105,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Container(
                       child: TextFormField(
+                        controller: passwordController,
                         focusNode: myFocusNode,
                         cursorColor: Color(0xFF0A287E),
                         decoration: new InputDecoration(
@@ -253,5 +261,24 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       ),
     );
+  }
+}
+login(phoneNum, password) async{
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  var data = {
+    'email':phoneNum,
+    'password':password
+  };
+  String body = json.encode(data);
+  var jsonResponse;
+  http.Response response = await http.post('http://deluxbakery.in/api/Account/authenticate', body: body,headers: {"Content-Type":"application/json"});
+  if (response.statusCode != 200){
+    print("FAILED WITH ERROR CODE "+ response.statusCode.toString());
+    print(response.body);
+  }
+  else{
+    jsonResponse = json.decode(response.body);
+    print("SUCCESS");
+    print(jsonResponse.toString());
   }
 }

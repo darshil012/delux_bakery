@@ -40,8 +40,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'poppin'),
+      theme: ThemeData(fontFamily: 'poppin', primaryColor: Color(0xFF1C3787),backgroundColor: Color(0xFF1C3787)),
       home: SplashScreen(),
+
       routes: routes,
     );
   }

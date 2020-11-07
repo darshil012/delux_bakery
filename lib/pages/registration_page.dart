@@ -1,9 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:alice/alice.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:delux_bakery/pages/login_page.dart';
 import 'package:delux_bakery/pages/otp_verif_test.dart';
+
+import 'package:delux_bakery/models/UserResponse.dart';
+import 'package:delux_bakery/models/user.dart';
 
 bool _obscureText = true;
 String _currentPhone;
@@ -15,6 +24,10 @@ class RegistrationScreen extends StatefulWidget{
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final myController = TextEditingController();
+  final shopNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final password = TextEditingController();
+  final confirmPassword = TextEditingController();
   FocusNode myFocusNode = new FocusNode();
 
   @override
@@ -86,6 +99,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           SizedBox(height: 10,),
                           Container(
                             child: TextFormField(
+                              controller: shopNameController,
                               cursorColor: Color(0xFF0A287E),
                               decoration: new InputDecoration(
                                   contentPadding: EdgeInsets.only(top: 8.0, left: 20),
@@ -119,6 +133,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           Container(
                               child: TextFormField(
+                                controller: myController,
                                 cursorColor: Color(0xFF0A287E),
                                 keyboardType: TextInputType.number,
                                 decoration: new InputDecoration(
@@ -159,6 +174,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           Container(
                               child: TextFormField(
+                                controller: emailController,
                                 cursorColor: Color(0xFF0A287E),
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: new InputDecoration(
@@ -193,6 +209,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           Container(
                             child: TextFormField(
+                              controller: password,
                               cursorColor: Color(0xFF0A287E),
                               focusNode: myFocusNode,
                               decoration: new InputDecoration(
@@ -223,6 +240,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                               obscureText: _obscureText,
+                              validator: (String val){
+                                if(val.isEmpty){
+                                  return 'Empty';
+                                }
+                                else{
+                                  return null;
+                                }
+                              },
                             ),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(18),
@@ -239,6 +264,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           Container(
                             child: TextFormField(
+                              controller: confirmPassword,
                               cursorColor: Color(0xFF0A287E),
                               decoration: new InputDecoration(
                                 contentPadding: EdgeInsets.only(top: 8.0, left: 20),
@@ -257,6 +283,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 ),
                               ),
                               obscureText: _obscureText,
+                              validator: (val){
+                                if(val.isEmpty){
+                                  return 'Empty';
+                                }
+                                else if(val != password.text){
+                                  return 'Not Match';
+                                }
+                                else{
+                                  return null;
+                                }
+                              },
                             ),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(18),
@@ -274,9 +311,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           Container(
                             height: 45.0,
                             child: FlatButton(
-                              onPressed: () {
-                                print(_currentPhone);
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PinCodeVerificationScreen(_currentPhone)));
+                              onPressed: emailController.text=="" || password.text=="" || myController.text=="" || shopNameController.text == "" || confirmPassword.text=="" ? null : () {
+                                register(shopNameController.text, myController.text, emailController.text, password.text, confirmPassword.text);
                               },
                               child: Container(
                                 decoration: BoxDecoration(
@@ -364,205 +400,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       )
     );
   }
+  register(shopName, phoneNum, email, password, confirmPassword) async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var data = {
+      'firstName': shopName,
+      'lastName': '111',
+      'email': email.toString(),
+      'userName': phoneNum.toString(),
+      'password': password,
+      'confirmPassword': confirmPassword,
+      'phoneNumber': phoneNum.toString()
+    };
+    String body = json.encode(data);
+    var jsonResponse;
+    print(shopName + email + phoneNum + password + confirmPassword + phoneNum);
+    http.Response response = await http.post('http://deluxbakery.in/api/Account/register', headers: {"Content-Type":"application/json"}, body: body);
+    if(response.statusCode == 200){
+      jsonResponse = json.decode(response.body);
+      print("SUCCESS");
+      print(jsonResponse.toString());
+    }
+    else{
+      print("FAILED WITH ERROR CODE " + response.statusCode.toString());
+      print(response.body);
+    }
+  }
 }
-// Stack(
-// children: <Widget>[
-// Container(
-// padding: const EdgeInsets.only(left: 20.0,right: 20.0),
-// decoration: BoxDecoration(color: Color(0xFFF4F5FC)),
-// child: Column(
-// children: <Widget>[
-// Expanded(
-// child: Column(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: <Widget>[
-// Image(image: AssetImage('assets/Logo1.png'), width: 250,),
-// ],
-// ),
-// ),
-// Expanded(
-// flex: 3,
-// child: Column(
-// mainAxisAlignment: MainAxisAlignment.start,
-// children: <Widget>[
-// TextFormField(
-// decoration: new InputDecoration(
-// contentPadding: EdgeInsets.only(top: 8.0),
-// labelText: 'Shop name',
-// prefixIcon: Icon(Icons.person),
-// fillColor: Colors.white,
-// border: new OutlineInputBorder(
-// borderRadius: new BorderRadius.circular(25.0),
-// borderSide: new BorderSide(),
-// )
-// ),
-// ),
-// Padding(
-// padding: EdgeInsets.only(top: 12.0),
-// ),
-// TextFormField(
-// keyboardType: TextInputType.number,
-// decoration: new InputDecoration(
-// contentPadding: EdgeInsets.only(top: 8.0),
-// labelText: 'Phone number',
-// prefixIcon: Icon(Icons.person),
-// fillColor: Colors.white,
-// border: new OutlineInputBorder(
-// borderRadius: new BorderRadius.circular(25.0),
-// borderSide: new BorderSide(),
-// )
-// ),
-// onChanged: (value) {
-// print(value);
-// setState(() {
-// _currentPhone = value;
-// });
-// },
-// ),
-// Padding(
-// padding: EdgeInsets.only(top: 12.0),
-// ),
-// TextFormField(
-// keyboardType: TextInputType.emailAddress,
-// decoration: new InputDecoration(
-// contentPadding: EdgeInsets.only(top: 8.0),
-// labelText: 'E-mail',
-// prefixIcon: Icon(Icons.person),
-// fillColor: Colors.white,
-// border: new OutlineInputBorder(
-// borderRadius: new BorderRadius.circular(25.0),
-// borderSide: new BorderSide(),
-// )
-// ),
-// ),
-// Padding(
-// padding: EdgeInsets.only(top: 12.0),
-// ),
-// TextFormField(
-// decoration: new InputDecoration(
-// contentPadding: EdgeInsets.only(top: 8.0),
-// labelText: 'Password',
-// prefixIcon: Icon(Icons.lock),
-// fillColor: Colors.white,
-// border: new OutlineInputBorder(
-// borderRadius: new BorderRadius.circular(25.0),
-// borderSide: new BorderSide(),
-// ),
-// suffixIcon: IconButton(
-// icon: Icon(
-// _obscureText ? Icons.visibility : Icons.visibility_off
-// ),
-// onPressed: (){
-// setState(() {
-// _obscureText = !_obscureText;
-// });
-// },
-// ),
-// ),
-// obscureText: _obscureText,
-// ),
-// Padding(
-// padding: EdgeInsets.only(top: 12.0),
-// ),
-// TextFormField(
-// decoration: new InputDecoration(
-// contentPadding: EdgeInsets.only(top: 8.0),
-// labelText: 'Re-Type Password',
-// prefixIcon: Icon(Icons.lock),
-// fillColor: Colors.white,
-// border: new OutlineInputBorder(
-// borderRadius: new BorderRadius.circular(25.0),
-// borderSide: new BorderSide(),
-// ),
-// ),
-// obscureText: false,
-// ),
-// Container(
-// height: 45,
-// child: Center(
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// crossAxisAlignment: CrossAxisAlignment.center,
-// children: <Widget>[
-// Text(
-// 'Already Registered?  ',
-// style: TextStyle(
-// color: Colors.grey.shade700,
-// fontSize: 10.0
-// ),
-// ),
-// GestureDetector(
-// onTap: (){
-// Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-// },
-// child: Container(
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// crossAxisAlignment: CrossAxisAlignment.center,
-// children: <Widget>[
-// Center(
-// child: Text(
-// 'Sign in',
-// style: TextStyle(
-// color: Colors.indigo,
-// fontSize: 14,
-// fontWeight: FontWeight.w600
-// ),
-// ),
-// )
-// ],
-// ),
-// ),
-// )
-// ],
-// ),
-// ),
-// ),
-// Padding(
-// padding: EdgeInsets.only(top: 12.0),
-// ),
-// Container(
-// height: 45.0,
-// child: FlatButton(
-// onPressed: () {
-// print(_currentPhone);
-// Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => PinCodeVerificationScreen(_currentPhone)));
-// },
-// child: Container(
-// decoration: BoxDecoration(
-// border: Border.all(
-// color: Colors.indigo,
-// style: BorderStyle.solid,
-// width: 1.0,
-// ),
-// color: Colors.indigo,
-// borderRadius: BorderRadius.circular(30.0),
-// ),
-// child: Row(
-// mainAxisAlignment: MainAxisAlignment.center,
-// children: <Widget>[
-// Center(
-// child: Text(
-// "Sign Up",
-// style: TextStyle(
-// color: Colors.white,
-// fontFamily: 'Montserrat',
-// fontSize: 16,
-// fontWeight: FontWeight.w600,
-// letterSpacing: 1,
-// ),
-// ),
-// )
-// ],
-// ),
-// ),
-// ),
-// )
-// ],
-// ),
-// ),
-// ],
-// ),
-// ),
-// ],
-// ),

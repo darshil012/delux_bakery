@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:delux_bakery/components/zoom_scaffold.dart';
 
 class UserAppBar extends StatelessWidget implements PreferredSizeWidget{
+  bool isCollapsed;
+  final AnimationController controller;
+  double borderRadius;
+  final Function onPressedMenu;
+  UserAppBar( this.isCollapsed, this.controller, this.borderRadius , this.onPressedMenu);
+
+
   @override
-  Size get preferredSize => const Size.fromHeight(49);
+  Size get preferredSize => const Size.fromHeight(48);
 
   @override
   Widget build(BuildContext context){
@@ -11,16 +18,13 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget{
 
       children: <Widget>[
         Container(
-          padding: EdgeInsets.only(top: 25.0),
           decoration: BoxDecoration(
             color: Color(0xFF0A287E)
           ),
           child: Row(
             children: <Widget>[
               FlatButton(
-                onPressed: (){
-                  Scaffold.of(context).openDrawer();
-                },
+                onPressed: () => onPressedMenu(isCollapsed, controller, borderRadius),
                 child: Image(image: AssetImage('assets/hamburger.png'),),
                 minWidth: 20,
               ),
