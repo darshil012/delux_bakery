@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:alice/alice.dart';
 
 import 'package:delux_bakery/pages/splash_screen.dart';
 
@@ -38,6 +39,7 @@ var routes = <String, WidgetBuilder>{
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Alice alice = Alice();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: 'poppin', primaryColor: Color(0xFF1C3787),backgroundColor: Color(0xFF1C3787)),

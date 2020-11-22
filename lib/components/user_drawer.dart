@@ -51,7 +51,7 @@ class UserDrawer extends StatelessWidget{
           children: <Widget>[
             SizedBox(height: 10,),
             GestureDetector(
-              onTap: (){Navigator.pushNamed(context, '/home');},
+              onTap: (){Navigator.pushReplacementNamed(context, '/home');},
               child: Text(
                 'Home',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
@@ -61,7 +61,7 @@ class UserDrawer extends StatelessWidget{
             GestureDetector(
               onTap: (){Navigator.pushNamed(context, '/transactions_screen');},
               child: Text(
-                'Tranaction',
+                'Transactions',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
             ),
@@ -98,7 +98,7 @@ class UserDrawer extends StatelessWidget{
             ),
             SizedBox(height: 10),
             GestureDetector(
-              onTap: (){Navigator.pushNamed(context, '/');},
+              onTap: (){Navigator.pushReplacementNamed(context, '/');},
               child: Text(
                 'Logout',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),

@@ -1,6 +1,5 @@
 import 'user.dart';
 
-
 class UserResponse {
   User user;
   String error;
