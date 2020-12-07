@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
 
@@ -108,7 +108,7 @@ class _UserState extends State<Userwidget> with TickerProviderStateMixin{
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               child: Scaffold(
                 appBar: AppBar(
-                  backgroundColor: Color(0xFF0A287E),
+                  backgroundColor: UniversalVariables.blue,
                   title: Text('SandwichKing'),
                   leading: IconButton(
                       icon: AnimatedIcon(
@@ -139,7 +139,7 @@ class _UserState extends State<Userwidget> with TickerProviderStateMixin{
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height*0.80,
                         decoration: BoxDecoration(
-                            color: Color(0xFFF4F5FC),
+                            color: UniversalVariables.backgroundColor,
                             image: DecorationImage(
                               image: AssetImage('assets/userpage_curve.png'),
                               fit: BoxFit.fitWidth,
@@ -325,7 +325,7 @@ class _UserState extends State<Userwidget> with TickerProviderStateMixin{
                     image: AssetImage('assets/ico-hand.png'),
                     width: 25,
                   ),
-                  backgroundColor: Color(0xFFE4001B),
+                  backgroundColor: UniversalVariables.darkRed,
                   elevation: 4.0,
                 ),
                 bottomNavigationBar: BottomAppBar(
@@ -336,7 +336,7 @@ class _UserState extends State<Userwidget> with TickerProviderStateMixin{
                       Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined), onPressed: (){Navigator.pushNamed(context, '/report');},)),
                       Expanded(child: new Text('')),
                       Expanded(child: IconButton(icon: Icon(Icons.notifications), onPressed: (){Navigator.pushNamed(context, '/notifs');},)),
-                      Expanded(child: IconButton(icon: Icon(Icons.person,color: Color(0xFF0A287E),), onPressed: (){},)),
+                      Expanded(child: IconButton(icon: Icon(Icons.person,color: UniversalVariables.blue,), onPressed: (){},)),
                     ],
                   ),
                 ),

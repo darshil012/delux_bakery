@@ -1,14 +1,16 @@
 import 'dart:async';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:delux_bakery/pages/new_password.dart';
 
 
 class PinCodeVerificationScreen extends StatefulWidget {
   final String phoneNumber;
+  final String screenChoice;
 
-  PinCodeVerificationScreen(this.phoneNumber);
+  PinCodeVerificationScreen(this.phoneNumber, {@required this.screenChoice});
 
   @override
   _PinCodeVerificationScreenState createState() =>
@@ -48,7 +50,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF4F5FC),
+      backgroundColor: UniversalVariables.backgroundColor,
       key: scaffoldKey,
       body: GestureDetector(
         onTap: () {},
@@ -70,7 +72,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Text(
                   'OTP Verification',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, fontFamily: 'poppin', color: Color(0xFFE4001B)),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22, fontFamily: 'poppin', color: UniversalVariables.darkRed),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -84,7 +86,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         TextSpan(
                             text: widget.phoneNumber,
                             style: TextStyle(
-                                color: Color(0xFF0A287E),
+                                color: UniversalVariables.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15)),
                       ],
@@ -138,7 +140,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                               fieldWidth: 50,
                               activeFillColor:Colors.white,
                               inactiveFillColor: Colors.white,
-                              inactiveColor: Color(0xFF0A287E),
+                              inactiveColor: UniversalVariables.blue,
                               selectedFillColor: Colors.white
                             ),
                             cursorColor: Colors.black,
@@ -199,7 +201,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                 text: " RESEND",
                                 recognizer: onTapRecognizer,
                                 style: TextStyle(
-                                    color: Color(0xFFE4001B),
+                                    color: UniversalVariables.darkRed,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: 'poppin',
                                     fontSize: 16))
@@ -231,7 +233,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                                   duration: Duration(seconds: 2),
                                 ));
                               });
-                              Navigator.pushReplacementNamed(context, '/home');
+                              widget.screenChoice=='home' ? Navigator.pushReplacementNamed(context, '/home'):Navigator.push(context, MaterialPageRoute(builder: (context) => NewPasswordScreen()));
                             }
                           },
                           child: Center(
@@ -245,7 +247,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                         ),
                       ),
                       decoration: BoxDecoration(
-                          color: Color(0xFF0A287E),
+                          color: UniversalVariables.blue,
                           borderRadius: BorderRadius.circular(5),
                           boxShadow: [
                             BoxShadow(

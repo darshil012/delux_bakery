@@ -72,9 +72,9 @@ flutter:
    - family: swashed
      fonts:
       - asset: fonts/swashed.ttf
-   - family: slogan_italic
-     fonts:
-      - asset: fonts/slogan_italic.ttf
+#   - family: slogan_italic
+#     fonts:
+#      - asset: fonts/slogan_italic.ttf
    - family: poppin
      fonts:
       - asset: fonts/Poppins-Medium.ttf

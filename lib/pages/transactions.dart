@@ -1,7 +1,7 @@
 import 'package:delux_bakery/components/zoom_scaffold.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
 
@@ -108,7 +108,7 @@ class _TransactionsScreen extends State<TransactionsScreen> with TickerProviderS
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               child: Scaffold(
                 appBar: AppBar(
-                  backgroundColor: Color(0xFF0A287E),
+                  backgroundColor: UniversalVariables.blue,
                   title: Text('SandwichKing'),
                   leading: IconButton(
                       icon: AnimatedIcon(
@@ -161,7 +161,7 @@ class _TransactionsScreen extends State<TransactionsScreen> with TickerProviderS
                                       Text(
                                         '-₹2000',
                                         style: TextStyle(
-                                            color: Color(0xFF0A287E),
+                                            color: UniversalVariables.blue,
                                             fontSize: 26,
                                             fontWeight: FontWeight.w700
                                         ),
@@ -226,7 +226,7 @@ class _TransactionsScreen extends State<TransactionsScreen> with TickerProviderS
                                 ),
                                 SizedBox(width: 5,),
                                 Container(
-                                  color: Color(0xFF1C3787),
+                                  color: UniversalVariables.primaryColor,
                                   height: MediaQuery.of(context).size.height*0.09,
                                   width: 4,
                                 ),
@@ -238,7 +238,7 @@ class _TransactionsScreen extends State<TransactionsScreen> with TickerProviderS
                                       Text(
                                         'Lorem ipsum',
                                         style: TextStyle(
-                                          color: Color(0xFF1C3787),
+                                          color: UniversalVariables.primaryColor,
                                           fontSize: 12,
                                           fontWeight: FontWeight.w500,
                                         ),

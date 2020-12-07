@@ -8,7 +8,7 @@ import 'package:alice/alice.dart';
 import 'package:delux_bakery/models/api_model.dart';
 
 final _base ="http://deluxbakery.in";
-final api_url = _base + "/api/Account/registr";
+final api_url = _base + "/api/Account/register";
 
 
 class UserResponse {

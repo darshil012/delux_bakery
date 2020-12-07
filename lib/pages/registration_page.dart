@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:delux_bakery/models/api_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -13,7 +13,6 @@ import 'package:delux_bakery/api_conn/api_connection.dart';
 
 import 'package:delux_bakery/pages/login_page.dart';
 import 'package:delux_bakery/pages/otp_verif_test.dart';
-
 import 'package:delux_bakery/models/UserResponse.dart';
 import 'package:delux_bakery/models/user.dart';
 
@@ -56,7 +55,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 .of(context)
                 .size
                 .height + 50,
-            decoration: BoxDecoration(color: Color(0xFFF4F5FC)),
+            decoration: BoxDecoration(color: UniversalVariables.backgroundColor),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
@@ -92,7 +91,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               style: TextStyle(
                                   fontSize: 22,
                                   fontFamily: 'poppin',
-                                  color: Color(0xFFE4001B),
+                                  color: UniversalVariables.darkRed,
                                   fontWeight: FontWeight.w700
                               ),
                             ),
@@ -102,7 +101,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   fontSize: 12,
                                   fontFamily: 'poppin',
                                   fontWeight: FontWeight.w400,
-                                  color: Color(0xFF0A287E)
+                                  color: UniversalVariables.blue,
                               ),
                             ),
                             Text(
@@ -110,14 +109,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: 'poppin',
-                                  color: Color(0xFF0A287E)
+                                  color: UniversalVariables.blue,
                               ),
                             ),
                             SizedBox(height: 10,),
                             Container(
                               child: TextFormField(
                                 controller: shopNameController,
-                                cursorColor: Color(0xFF0A287E),
+                                cursorColor: UniversalVariables.blue,
                                 decoration: new InputDecoration(
                                     contentPadding: EdgeInsets.only(
                                         top: 8.0, left: 20),
@@ -154,7 +153,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Container(
                                 child: TextFormField(
                                   controller: myController,
-                                  cursorColor: Color(0xFF0A287E),
+                                  cursorColor: UniversalVariables.blue,
                                   keyboardType: TextInputType.number,
                                   decoration: new InputDecoration(
                                       contentPadding: EdgeInsets.only(
@@ -198,7 +197,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Container(
                                 child: TextFormField(
                                   controller: emailController,
-                                  cursorColor: Color(0xFF0A287E),
+                                  cursorColor: UniversalVariables.blue,
                                   keyboardType: TextInputType.emailAddress,
                                   decoration: new InputDecoration(
                                       contentPadding: EdgeInsets.only(
@@ -236,7 +235,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Container(
                               child: TextFormField(
                                 controller: password,
-                                cursorColor: Color(0xFF0A287E),
+                                cursorColor: UniversalVariables.blue,
                                 focusNode: myFocusNode,
                                 decoration: new InputDecoration(
                                   contentPadding: EdgeInsets.only(
@@ -259,8 +258,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                     icon: Icon(
                                       _obscureText ? Icons.visibility : Icons
                                           .visibility_off,
-                                      color: myFocusNode.hasFocus ? Color(
-                                          0xFF0A287E) : Colors.grey,
+                                      color: myFocusNode.hasFocus ? UniversalVariables
+                                          .blue : Colors.grey,
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -296,7 +295,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             Container(
                               child: TextFormField(
                                 controller: confirmPassword,
-                                cursorColor: Color(0xFF0A287E),
+                                cursorColor: UniversalVariables.blue,
                                 decoration: new InputDecoration(
                                   contentPadding: EdgeInsets.only(
                                       top: 8.0, left: 20),
@@ -353,11 +352,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                      color: Color(0xFF0A287E),
+                                      color: UniversalVariables.blue,
                                       style: BorderStyle.solid,
                                       width: 1.0,
                                     ),
-                                    color: Color(0xFF0A287E),
+                                    color: UniversalVariables.blue,
                                     borderRadius: BorderRadius.circular(30.0),
                                   ),
                                   child: Row(
@@ -415,7 +414,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               child: Text(
                                                 'Sign in',
                                                 style: TextStyle(
-                                                    color: Color(0xFF0A287E),
+                                                    color: UniversalVariables.blue,
                                                     fontSize: 14,
                                                     fontWeight: FontWeight.w600
                                                 ),
@@ -444,5 +443,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void onRegBtnPressed(name, email, phoneNumber, password, confirmPassword){
     getToken(UserRegistration(name: name, userName: phoneNumber, email: email, userPhone: phoneNumber, userPassword: password, userConfirmPassword: confirmPassword));
     print('SUCCESS');
+    Navigator.push(context, MaterialPageRoute(builder: (context) => PinCodeVerificationScreen(phoneNumber,screenChoice:'home')));
   }
 }

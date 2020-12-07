@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:delux_bakery/pages/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Container(
             width: double.infinity,
             decoration: BoxDecoration(
-              color: Color(0xFFF4F5FC),
+              color: UniversalVariables.backgroundColor,
               image: DecorationImage(
                 image: AssetImage('assets/toran.png'),
                 alignment: Alignment.topCenter,

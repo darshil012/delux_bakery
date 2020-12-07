@@ -8,7 +8,7 @@ import 'package:delux_bakery/pages/registration_page.dart';
 import 'package:delux_bakery/pages/login_page.dart';
 import 'package:delux_bakery/pages/request_service.dart';
 import 'package:delux_bakery/pages/transactions.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'home_widget.dart';
 import 'report_widget.dart';
 import 'notifs_widget.dart';
@@ -42,7 +42,7 @@ class App extends StatelessWidget {
     Alice alice = Alice();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'poppin', primaryColor: Color(0xFF1C3787),backgroundColor: Color(0xFF1C3787)),
+      theme: ThemeData(fontFamily: 'poppin', primaryColor: UniversalVariables.primaryColor,backgroundColor: UniversalVariables.primaryColor),
       home: SplashScreen(),
 
       routes: routes,

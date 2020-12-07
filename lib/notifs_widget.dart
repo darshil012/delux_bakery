@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'components/zoom_scaffold.dart';
 
 class NotificationWidget extends StatefulWidget{
@@ -105,7 +105,7 @@ class _NotificationWidget extends State<NotificationWidget> with TickerProviderS
                 borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                 child: Scaffold(
                   appBar: AppBar(
-                    backgroundColor: Color(0xFF0A287E),
+                    backgroundColor: UniversalVariables.blue,
                     title: Text('SandwichKing'),
                     leading: IconButton(
                         icon: AnimatedIcon(
@@ -138,7 +138,7 @@ class _NotificationWidget extends State<NotificationWidget> with TickerProviderS
                                 .size
                                 .width,
                             decoration: BoxDecoration(
-                                color: Color(0xFFF4F5FC)
+                                color: UniversalVariables.backgroundColor,
                             ),
                             child: Stack(
                               children: <Widget>[
@@ -234,7 +234,7 @@ class _NotificationWidget extends State<NotificationWidget> with TickerProviderS
                       image: AssetImage('assets/ico-hand.png'),
                       width: 25,
                     ),
-                    backgroundColor: Color(0xFFE4001B),
+                    backgroundColor: UniversalVariables.darkRed,
                     elevation: 4.0,
                   ),
                   bottomNavigationBar: BottomAppBar(
@@ -250,7 +250,7 @@ class _NotificationWidget extends State<NotificationWidget> with TickerProviderS
                         },)),
                         Expanded(child: new Text('')),
                         Expanded(child: IconButton(
-                          icon: Icon(Icons.notifications, color: Color(0xFF0A287E),),
+                          icon: Icon(Icons.notifications, color: UniversalVariables.blue,),
                           onPressed: () {},)),
                         Expanded(child: IconButton(icon: Icon(Icons.person), onPressed: () {
                           Navigator.pushNamed(context, '/user');

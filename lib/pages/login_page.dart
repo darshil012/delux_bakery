@@ -3,9 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:delux_bakery/pages/forgot_passsword.dart';
 import 'package:delux_bakery/home_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:delux_bakery/utils/universal_variables.dart';
 
 bool _obscureText = true;
 
@@ -27,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
         children: <Widget>[
           Container(
             padding: const EdgeInsets.only(left: 20.0,right: 20.0),
-            decoration: BoxDecoration(color: Color(0xFFF4F5FC)),
+            decoration: BoxDecoration(color: UniversalVariables.backgroundColor),
             child: Column(
               children: <Widget>[
                 Expanded(
@@ -47,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       'Login Here',
                       style: TextStyle(
-                        color: Color(0xFFD50F0F),
+                        color: UniversalVariables.darkRed,
                         fontSize: 25,
                         fontFamily: 'poppin',
                         fontWeight: FontWeight.w700
@@ -59,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       'Enter your Login credentials',
                       style: TextStyle(
-                        color: Color(0xFF0A287E),
+                        color: UniversalVariables.blue,
                         fontSize: 14,
                         fontWeight: FontWeight.w400
                       ),
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Text(
                       'to Sign in',
                       style: TextStyle(
-                        color: Color(0xFF0A287E),
+                        color: UniversalVariables.blue,
                         fontSize: 14,
                         fontWeight: FontWeight.w400
                       ),
@@ -79,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextFormField(
                         controller: phoneController,
                         keyboardType: TextInputType.number,
-                        cursorColor: Color(0xFF0A287E),
+                        cursorColor: UniversalVariables.blue,
                         decoration: new InputDecoration(
                             hintText: 'Mobile number',
                             hintStyle: TextStyle(
@@ -114,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: TextFormField(
                         controller: passwordController,
                         focusNode: myFocusNode,
-                        cursorColor: Color(0xFF0A287E),
+                        cursorColor: UniversalVariables.blue,
                         decoration: new InputDecoration(
                           hintText: 'Password',
                           hintStyle: TextStyle(
@@ -133,7 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           suffixIcon: IconButton(
                             icon: Icon(
                                 _obscureText ? Icons.visibility : Icons.visibility_off,
-                                color: myFocusNode.hasFocus ? Color(0xFF0A287E) : Colors.grey,
+                                color: myFocusNode.hasFocus ? UniversalVariables.blue : Colors.grey,
                             ),
                             onPressed: (){
                               setState(() {
@@ -162,12 +163,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: <Widget>[
                         new Text(''),
                         new FlatButton(
-                          color: Color(0xFFF4F5FC),
-                          onPressed: (){},
+                          color: UniversalVariables.backgroundColor,
+                          onPressed: (){
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgotPasswordScreen()
+                                )
+                            );
+                          },
                           child: Text(
                           'Forgot password?',
                           style: TextStyle(
-                            color: Color(0xFF0A287E),
+                            color: UniversalVariables.blue,
                             fontFamily: 'poppin',
                             fontSize: 12.0,
                             fontWeight: FontWeight.w400
@@ -189,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: BorderStyle.solid,
                           width: 1.0,
                         ),
-                        color: Color(0xFF0A287E),
+                        color: UniversalVariables.blue,
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: Row(
@@ -238,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text(
                                 "Not yet Registered?",
                                 style: TextStyle(
-                                  color: Color(0xFF0A287E),
+                                  color: UniversalVariables.blue,
                                   fontFamily: 'poppin',
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,

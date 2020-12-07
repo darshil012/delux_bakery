@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'components/confirm_order.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'components/zoom_scaffold.dart';
 
 class PunchOrder extends StatefulWidget{
@@ -135,7 +135,7 @@ class _PunchOrder extends State<PunchOrder> with TickerProviderStateMixin{
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               child: Scaffold(
                 appBar: AppBar(
-                  backgroundColor: Color(0xFF0A287E),
+                  backgroundColor: UniversalVariables.blue,
                   title: Text('SandwichKing'),
                   leading: IconButton(
                       icon: AnimatedIcon(
@@ -173,7 +173,7 @@ class _PunchOrder extends State<PunchOrder> with TickerProviderStateMixin{
                                     fit: BoxFit.fitWidth,
                                     alignment: Alignment.topCenter
                                 ),
-                                color: Color(0xFFF4F5FC)
+                                color: UniversalVariables.backgroundColor,
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -383,7 +383,7 @@ class _PunchOrder extends State<PunchOrder> with TickerProviderStateMixin{
                                       width: MediaQuery.of(context).size.width*0.45,
                                       height: 30,
                                       decoration: BoxDecoration(
-                                          color: Color(0xFF0A287E),
+                                          color: UniversalVariables.blue,
                                           borderRadius: BorderRadius.circular(15)
                                       ),
                                       child: FlatButton(
@@ -406,7 +406,7 @@ class _PunchOrder extends State<PunchOrder> with TickerProviderStateMixin{
                                                               style: TextStyle(
                                                                   fontWeight: FontWeight.w800,
                                                                   fontSize: 16,
-                                                                  color: Color(0xFF0A287E)
+                                                                  color: UniversalVariables.blue,
                                                               ),
                                                             ),
                                                             SizedBox(height: 10,),
@@ -456,7 +456,7 @@ class _PunchOrder extends State<PunchOrder> with TickerProviderStateMixin{
                     image: AssetImage('assets/ico-hand.png'),
                     width: 25,
                   ),
-                  backgroundColor: Color(0xFFE4001B),
+                  backgroundColor: UniversalVariables.darkRed,
                   elevation: 4.0,
                 ),
                 bottomNavigationBar: BottomAppBar(

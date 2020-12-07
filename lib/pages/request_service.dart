@@ -2,7 +2,7 @@ import 'package:delux_bakery/components/zoom_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
 
@@ -124,7 +124,7 @@ class _RequestServices extends State<RequestServices> with TickerProviderStateMi
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               child: Scaffold(
                 appBar: AppBar(
-                  backgroundColor: Color(0xFF0A287E),
+                  backgroundColor: UniversalVariables.blue,
                   title: Text('SandwichKing'),
                   leading: IconButton(
                       icon: AnimatedIcon(
@@ -163,7 +163,7 @@ class _RequestServices extends State<RequestServices> with TickerProviderStateMi
                                 child: Text(
                                   'Services Request',
                                   style: TextStyle(
-                                      color: Color(0xFF1C3787),
+                                      color: UniversalVariables.primaryColor,
                                       fontWeight: FontWeight.w800,
                                       fontSize: 24
                                   ),
@@ -284,7 +284,7 @@ class _RequestServices extends State<RequestServices> with TickerProviderStateMi
                             width: MediaQuery.of(context).size.width*0.50,
                             height: 40,
                             decoration: BoxDecoration(
-                              color: Color(0xFF1C3787),
+                              color: UniversalVariables.primaryColor,
                               borderRadius: BorderRadius.circular(20),
                               boxShadow: [BoxShadow(
                                 color: Colors.black45,
@@ -317,7 +317,7 @@ class _RequestServices extends State<RequestServices> with TickerProviderStateMi
                     image: AssetImage('assets/ico-hand.png'),
                     width: 25,
                   ),
-                  backgroundColor: Color(0xFFE4001B),
+                  backgroundColor: UniversalVariables.darkRed,
                   elevation: 4.0,
                 ),
                 bottomNavigationBar: BottomAppBar(
@@ -325,7 +325,7 @@ class _RequestServices extends State<RequestServices> with TickerProviderStateMi
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Expanded(child: IconButton(icon: Icon(Icons.home,), onPressed: (){Navigator.pushNamed(context, '/home');},)),
-                      Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined, color: Color(0xFF0A287E),), onPressed: (){},)),
+                      Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined, color: UniversalVariables.blue,), onPressed: (){},)),
                       Expanded(child: new Text('')),
                       Expanded(child: IconButton(icon: Icon(Icons.notifications,), onPressed: (){Navigator.pushReplacementNamed(context, '/notifs');},)),
                       Expanded(child: IconButton(icon: Icon(Icons.person), onPressed: (){Navigator.pushNamed(context, '/user');},)),

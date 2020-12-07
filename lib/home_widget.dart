@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:delux_bakery/components/zoom_scaffold.dart';
 import 'package:delux_bakery/components/notif_home.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
@@ -113,7 +113,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           child: Scaffold(
             //TOP
             appBar: AppBar(
-              backgroundColor: Color(0xFF0A287E),
+              backgroundColor: UniversalVariables.blue,
               title: Text('SandwichKing'),
               leading: IconButton(
                   icon: AnimatedIcon(
@@ -445,7 +445,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               child: new Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Expanded(child: IconButton(icon: Icon(Icons.home,color: Color(0xFF0A287E),), onPressed: (){},)),
+                  Expanded(child: IconButton(icon: Icon(Icons.home,color: UniversalVariables.blue,), onPressed: (){},)),
                   Expanded(child: IconButton(icon: Icon(Icons.text_snippet_outlined), onPressed: (){Navigator.pushReplacementNamed(context, '/report');},)),
                   Expanded(child: new Text('')),
                   Expanded(child: IconButton(icon: Icon(Icons.notifications), onPressed: (){Navigator.pushNamed(context, '/notifs');},)),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:delux_bakery/utils/universal_variables.dart';
 import 'package:delux_bakery/components/user_appbar.dart';
 import 'package:delux_bakery/components/user_drawer.dart';
 
@@ -22,7 +22,7 @@ class _NotificationWidget extends State<NotificationWidget>{
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                    color: Color(0xFFF4F5FC)
+                    color: UniversalVariables.backgroundColor,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
